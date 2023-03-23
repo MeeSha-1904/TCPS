@@ -1,0 +1,195 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Stocks Sum</h5>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr ngClass="bg-warning">
+                            <th>Title</th>
+                            <th>Change - Sum</th>
+                            <th>Change % - Sum</th>
+                            <th>Weightage % - Sum</th>
+                            <th>Call/Put</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let topsum of this.stockDataSum" [ngClass]="{ 'bg-success': topsum.title == 'Top 10', 
+                        'bg-primary': topsum.title == 'Top 20', 'bg-warning': topsum.title == 'Top 30',
+                        'bg-default': topsum.title == 'Top 40','bg-danger': topsum.title == 'Top 50'}">
+                            <th>{{ topsum.title }}</th>
+                            <th [ngClass]="{'bg-success' : topsum.change_sum > 0 ,
+                                'bg-danger' : topsum.change_sum < 0}">{{ topsum.change_sum.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : topsum.pChange_sum > 0 ,
+                                'bg-danger' : topsum.pChange_sum < 0}">{{ topsum.pChange_sum.toFixed(2) }}</th>
+                            <th>{{ topsum.weightage_sum.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : topsum.tradeType == 'Call',
+                            'bg-danger' : topsum.tradeType == 'Put'}">{{ topsum.tradeType }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Sector Wise Weightage</h5>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr ngClass="bg-warning">
+                            <th>Sector</th>
+                            <th>Weightage % - Sector</th>
+                            <th>Change - Sector</th>
+                            <th>Change % - Sector</th>
+                            <th>30 Days Change % - Sector</th>
+                            <th>Call/Put</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let indWeight of this.industryWeightage" [ngClass]="{'bg-primary' : indWeight.weightage >= 4 ,
+                        'bg-warning' : indWeight.weightage < 4 && indWeight.weightage >= 1,
+                        'bg-default' : indWeight.weightage < 1}">
+                            <th><a style="cursor: pointer;" (click)="getSectorWiseStockData(indWeight.industry)">
+                                    {{ indWeight.industry }}</a>
+                            </th>
+                            <th>{{ indWeight.weightage.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : indWeight.change > 0 ,
+                                'bg-danger' : indWeight.change < 0}">{{ indWeight.change.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : indWeight.pChange > 0 ,
+                                'bg-danger' : indWeight.pChange < 0}">{{ indWeight.pChange.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : indWeight.perChange30d > 0 ,
+                                    'bg-danger' : indWeight.perChange30d < 0}">{{ indWeight.perChange30d.toFixed(2) }}
+                            </th>
+                            <th [ngClass]="{'bg-success' : indWeight.tradeType == 'Call',
+                            'bg-danger' : indWeight.tradeType == 'Put'}">{{ indWeight.tradeType }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">NIFTY Stocks</h5>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr ngClass="bg-warning">
+                            <th>Company</th>
+                            <th>Open</th>
+                            <th>LTP</th>
+                            <th>DIFF</th>
+                            <th>Change</th>
+                            <th>Change %</th>
+                            <th>Weightage %</th>
+                            <th>30 Days Change %</th>
+                            <th>365 Days Change %</th>
+                            <th>Call/Put</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let stock of this.stocksData; let i = index;">
+
+                            <th [ngClass]="{ 'bg-success': i < 10, 
+                                'bg-primary': i > 9 && i < 20, 'bg-warning': i > 19 && i < 30,
+                                'bg-default': i > 29 && i < 40,'bg-danger': i > 39 && i < 50}">
+                                <a style="cursor: pointer;" (click)="getStocksDeliveryData(stock.companyname, 1)">{{
+                                    stock.companyname }}</a>
+                            </th>
+                            <th>{{ stock.open }}</th>
+                            <th>{{ stock.lastPrice }}</th>
+                            <th
+                                [ngClass]="{ 'bg-success': (stock.lastPrice - stock.open) > 0,
+                                'bg-danger': (stock.lastPrice - stock.open) < 0, 'bg-warning': (stock.lastPrice - stock.open) == 0 }">
+                                {{ (stock.lastPrice - stock.open).toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : stock.change > 0 ,
+                                'bg-danger' : stock.change < 0}">{{ stock.change }}</th>
+                            <th [ngClass]="{'bg-success' : stock.pChange > 0 ,
+                                        'bg-danger' : stock.pChange < 0}">{{ stock.pChange }}</th>
+                            <th>{{ stock.weightage.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : stock.perChange30d > 0 ,
+                                        'bg-danger' : stock.perChange30d < 0}">{{ stock.perChange30d }}</th>
+                            <th [ngClass]="{'bg-success' : stock.perChange365d > 0,
+                                        'bg-danger' : stock.perChange365d < 0}">{{ stock.perChange365d }}</th>
+                            <th [ngClass]="{'bg-success' : stock.tradeType == 'Call',
+                                        'bg-danger' : stock.tradeType == 'Put'}">{{ stock.tradeType }}</th>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Header" [(visible)]="this.stockDeliveryVisible" [breakpoints]="{'960px': '75vw'}"
+    [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" (onHide)="hideDialogBox()">
+    <table>
+        <thead>
+            <tr class="bg-warning">
+                <th>Symbol</th>
+                <th>TotalTradedQuantity</th>
+                <th>No.ofTrades</th>
+                <th>DeliverableQty</th>
+                <th>%DlyQttoTradedQty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let delivery of this.stockDeliveryData" class="bg-primary">
+                <th>{{ delivery.symbol }}</th>
+                <th>{{ delivery.TotalTradedQuantity }}</th>
+                <th>{{delivery.NoofTrades}}</th>
+                <th>{{delivery.DeliverableQty}}</th>
+                <th>{{delivery.DlyQttoTradedQty}}</th>
+            </tr>
+        </tbody>
+    </table>
+</p-dialog>
+
+<p-dialog [header]="this.selectedIndustory" [(visible)]="this.industoryWiseStockVisible"
+    [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false"
+    (onHide)="hideDialogBox()">
+    <table>
+        <thead>
+            <tr class="bg-warning">
+                <th>Symbol</th>
+                <th>Open</th>
+                <th>LTP</th>
+                <th>DIFF</th>
+                <th>Change</th>
+                <th>Change %</th>
+                <th>30 Days Change %</th>
+                <th>Weightage</th>
+                <th>Call/Put</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let stock of this.sectorWisestock">
+                <th>{{ stock.companyname }}</th>
+                <th>{{ stock.open.toFixed(2) }}</th>
+                <th>{{ stock.lastPrice.toFixed(2) }}</th>
+                <th
+                    [ngClass]="{ 'bg-success': (stock.lastPrice - stock.open) > 0,
+                                'bg-danger': (stock.lastPrice - stock.open) < 0, 'bg-warning': (stock.lastPrice - stock.open) == 0 }">
+                    {{ (stock.lastPrice - stock.open).toFixed(2) }}</th>
+                <th [ngClass]="{'bg-success' : stock.change > 0 ,
+                    'bg-danger' : stock.change < 0}">{{ stock.change.toFixed(2) }}</th>
+                <th [ngClass]="{'bg-success' : stock.pChange > 0 ,
+                    'bg-danger' : stock.pChange < 0}">{{ stock.pChange.toFixed(2) }}</th>
+                <th [ngClass]="{'bg-success' : stock.perChange30d > 0 ,
+                    'bg-danger' : stock.perChange30d < 0}">{{ stock.perChange30d.toFixed(2) }}</th>
+                <th [ngClass]="{'bg-success' : stock.weightage > 0 ,
+                    'bg-danger' : stock.weightage < 0}">{{ stock.weightage.toFixed(2) }}</th>
+                <th [ngClass]="{'bg-success' : stock.tradeType == 'Call',
+                'bg-danger' : stock.tradeType == 'Put'}">{{ stock.tradeType }}</th>
+            </tr>
+        </tbody>
+    </table>
+</p-dialog>

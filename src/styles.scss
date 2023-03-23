@@ -1,0 +1,45 @@
+table,
+tr,
+th,
+td {
+    border: black 1px solid;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    text-align: left;
+    width: 25%;
+}
+
+.bg-red {
+    background-color: maroon;
+    color: white;
+}
+
+.bg-green {
+    background-color: darkgreen;
+    color: white;
+}
+
+.bg-yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.bg-orange {
+    background-color: rgb(252, 206, 121) !important;
+    color: black;   
+}
+
+.tbl_oc td{
+    text-align: center;
+    width: 7.69%;
+}
+
+.tbl_oc th{
+    width: 7.69%;
+}

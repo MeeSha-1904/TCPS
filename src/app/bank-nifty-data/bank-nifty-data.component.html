@@ -1,0 +1,236 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 mg-5">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"></h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label class="">Expiry Date</label>
+                        <select class="form-control" *ngIf="this.optionchaindata != null">
+                            <option *ngFor="let expdate of this.optionchaindata.records.expiryDates">{{ expdate }}
+                            </option>
+                        </select>
+                        <select class="form-control" *ngIf="this.optionchaindata == null">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-4">
+                        <label class="">Time-Zone</label>
+                        <select class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-sm col-1">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">BANK NIFTY</h5>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr ngClass="bg-yellow">
+                            <th>LTP</th>
+                            <th>Open</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Year High</th>
+                            <th>Year Low</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th ngClass="bg-green">{{ this.bankniftydata.ltp }}</th>
+                            <th>{{ this.bankniftydata.open }}</th>
+                            <th>{{ this.bankniftydata.high }}</th>
+                            <th>{{ this.bankniftydata.low }}</th>
+                            <th>{{ this.bankniftydata.yHigh }}</th>
+                            <th>{{ this.bankniftydata.yLow }}</th>
+                        </tr>
+                        <tr>
+                            <th ngClass="bg-yellow">Diff</th>
+                            <th [ngClass]="{ 'bg-green': this.bankniftyDiffByLTPData.diffopen > 0,
+                        'bg-red': this.bankniftyDiffByLTPData.diffopen <= 0 }">{{ this.bankniftyDiffByLTPData.diffopen
+                                }}
+                            </th>
+                            <th [ngClass]="{ 'bg-green': this.bankniftyDiffByLTPData.diffhigh > 0,
+                        'bg-red': this.bankniftyDiffByLTPData.diffhigh <= 0 }">{{ this.bankniftyDiffByLTPData.diffhigh
+                                }}
+                            </th>
+                            <th [ngClass]="{ 'bg-green': this.bankniftyDiffByLTPData.difflow > 80,
+                        'bg-red': this.bankniftyDiffByLTPData.difflow <= 80 }">{{ this.bankniftyDiffByLTPData.difflow
+                                }}
+                            </th>
+                            <th [ngClass]="{ 'bg-green': this.bankniftyDiffByLTPData.diffyHigh > 0,
+                        'bg-red': this.bankniftyDiffByLTPData.diffyHigh <= 0 }">{{
+                                this.bankniftyDiffByLTPData.diffyHigh }}
+                            </th>
+                            <th [ngClass]="{ 'bg-green': this.bankniftyDiffByLTPData.diffyLow > 80,
+                        'bg-red': this.bankniftyDiffByLTPData.diffyLow <= 80 }">{{ this.bankniftyDiffByLTPData.diffyLow
+                                }}
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">BTST <b>(Nearest 5 CALLS & PUTS Valuation) - {{ this.btstLastTriggerTime }}</b></h5>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr ngClass="bg-yellow">
+                            <th>TYPE</th>
+                            <th>IV</th>
+                            <th>Voulme</th>
+                            <th>OI</th>
+                            <th>Buy Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>CALLS</th>
+                            <th [ngClass]="{ 'bg-green': this.btstbnCallValue.IV_total > this.btstbnPutValue.IV_total,
+                        'bg-red': this.btstbnCallValue.IV_total < this.btstbnPutValue.IV_total }">
+                                {{ this.btstbnCallValue.IV_total }}</th>
+                            <th [ngClass]="{ 'bg-green': this.btstbnCallValue.Volume_total > this.btstbnPutValue.Volume_total,
+                        'bg-red': this.btstbnCallValue.Volume_total < this.btstbnPutValue.Volume_total }">
+                                {{ this.btstbnCallValue.Volume_total.toLocaleString('en-IN') }}</th>
+                            <th [ngClass]="{ 'bg-green': this.btstbnCallValue.OI_total < this.btstbnPutValue.OI_total,
+                        'bg-red': this.btstbnCallValue.OI_total > this.btstbnPutValue.OI_total }">
+                                {{ this.btstbnCallValue.OI_total.toLocaleString('en-IN') }}</th>
+                            <th rowspan="3"
+                                [ngClass]="{ 'bg-green' : this.bankniftyBuy == 'CALL', 'bg-red' : this.bankniftyBuy == 'PUT' }">
+                                {{ this.bankniftyBuy }}</th>
+                        </tr>
+                        <tr>
+                            <th>PUTS</th>
+                            <th [ngClass]="{ 'bg-green': this.btstbnCallValue.IV_total < this.btstbnPutValue.IV_total,
+                        'bg-red': this.btstbnCallValue.IV_total > this.btstbnPutValue.IV_total }">
+                                {{ this.btstbnPutValue.IV_total }}</th>
+                            <th [ngClass]="{ 'bg-green': this.btstbnCallValue.Volume_total < this.btstbnPutValue.Volume_total,
+                        'bg-red': this.btstbnCallValue.Volume_total > this.btstbnPutValue.Volume_total }">
+                                {{ this.btstbnPutValue.Volume_total.toLocaleString('en-IN') }}</th>
+                            <th [ngClass]="{ 'bg-green': this.btstbnCallValue.OI_total > this.btstbnPutValue.OI_total,
+                    'bg-red': this.btstbnCallValue.OI_total < this.btstbnPutValue.OI_total }">
+                                {{ this.btstbnPutValue.OI_total.toLocaleString('en-IN') }}</th>
+                        </tr>
+                        <tr ngClass="bg-yellow">
+                            <th>Diff</th>
+                            <th>{{ this.btstbnDiff.IV_total }}</th>
+                            <th>{{ this.btstbnDiff.Volume_total.toLocaleString('en-IN') }}</th>
+                            <th>{{ this.btstbnDiff.OI_total.toLocaleString('en-IN') }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Bank Nifty Option Chain Top-8 Data of CE & PE</h5>
+            </div>
+            <div class="card-body">
+                <table class="tbl_oc">
+                    <thead>
+                        <tr>
+                            <th colspan="5" class="bg-green">CALL</th>
+                            <th rowspan="2" class="bg-orange">Strike</th>
+                            <th colspan="5" class="bg-red">PUT</th>
+                            <th colspan="2" class="bg-yellow">PCR</th>
+                        </tr>
+                        <tr>
+                            <th class="bg-green">OI</th>
+                            <th class="bg-green">Change OI</th>
+                            <th class="bg-green">Total Buy Qty</th>
+                            <th class="bg-green">Total Sell Qty</th>
+                            <th class="bg-green">Total Tranded Volume</th>
+                            <th class="bg-red">OI</th>
+                            <th class="bg-red">Change OI</th>
+                            <th class="bg-red">Total Buy Qty</th>
+                            <th class="bg-red">Total Sell Qty</th>
+                            <th class="bg-red">Total Tranded Volume</th>
+                            <th class="bg-yellow">PCR Ratio</th>
+                            <th class="bg-yellow">PCR Indication</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="this.optionchain_top16_data != null">
+                        <tr *ngFor="let opdata of this.optionchain_top16_data; let idx = index;">
+                            <td>{{ opdata.CE_OI }}</td>
+                            <td>{{ opdata.CE_changeOI }}</td>
+                            <td>{{ opdata.CE_totalBuyQuantity }}</td>
+                            <td>{{ opdata.CE_totalSellQuantity }}</td>
+                            <td>{{ opdata.CE_totalTradedVolume }}</td>
+                            <td [ngClass]="{'bg-green': idx < 8,
+                                'bg-red': idx > 7}">{{ opdata.SP }}</td>
+                            <td>{{ opdata.PE_OI }}</td>
+                            <td>{{ opdata.PE_changeOI }}</td>
+                            <td>{{ opdata.PE_totalBuyQuantity }}</td>
+                            <td>{{ opdata.PE_totalSellQuantity }}</td>
+                            <td>{{ opdata.PE_totalTradedVolume }}</td>
+                            <td>{{ (opdata.PE_changeOI/opdata.CE_changeOI).toFixed(2) }}</td>
+                            <td>{{ opdata.PE_changeOI < opdata.CE_changeOI ? "PUT" : "CALL" }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="bg-green">{{
+                                this.optionchain_top16_data_total.CE_OI.toLocaleString('en-IN')}}</th>
+                            <th class="bg-green">{{
+                                this.optionchain_top16_data_total.CE_changeOI.toLocaleString('en-IN')}}</th>
+                            <th class="bg-green">{{
+                                this.optionchain_top16_data_total.CE_totalBuyQuantity.toLocaleString('en-IN')}}
+                            </th>
+                            <th class="bg-green">{{
+                                this.optionchain_top16_data_total.CE_totalSellQuantity.toLocaleString('en-IN')}}
+                            </th>
+                            <th class="bg-green">{{
+                                this.optionchain_top16_data_total.CE_totalTradedVolume.toLocaleString('en-IN')}}
+                            </th>
+                            <th></th>
+                            <th class="bg-red">{{
+                                this.optionchain_top16_data_total.PE_OI.toLocaleString('en-IN')}}</th>
+                            <th class="bg-red">{{
+                                this.optionchain_top16_data_total.PE_changeOI.toLocaleString('en-IN')}}</th>
+                            <th class="bg-red">{{
+                                this.optionchain_top16_data_total.PE_totalBuyQuantity.toLocaleString('en-IN')}}
+                            </th>
+                            <th class="bg-red">{{
+                                this.optionchain_top16_data_total.PE_totalSellQuantity.toLocaleString('en-IN')}}
+                            </th>
+                            <th class="bg-red">{{
+                                this.optionchain_top16_data_total.PE_totalTradedVolume.toLocaleString('en-IN')}}
+                            </th>
+                            <th class="bg-yellow">{{
+                                (this.optionchain_top16_data_total.PE_changeOI/this.optionchain_top16_data_total.CE_changeOI).toFixed(2)
+                                }}</th>
+                            <th
+                                [ngClass]="{'bg-red': this.optionchain_top16_data_total.PE_changeOI < this.optionchain_top16_data_total.CE_changeOI,
+                             'bg-green': this.optionchain_top16_data_total.PE_changeOI > this.optionchain_top16_data_total.CE_changeOI}">
+                                {{ this.optionchain_top16_data_total.PE_changeOI <
+                                    this.optionchain_top16_data_total.CE_changeOI ? "PUT" : "CALL" }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

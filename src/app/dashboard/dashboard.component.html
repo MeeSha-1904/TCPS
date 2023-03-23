@@ -1,0 +1,290 @@
+<!-- Info boxes -->
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3 bg-warning">
+            <span class="info-box-icon"><i class="fas fa-cog"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text"><strong>INDIA VIX</strong></span>
+                <span class="info-box-number">{{ this.indiaVIXCurPrice.toFixed(4) }}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3 bg-success">
+            <span class="info-box-icon"><i class="fas fa-thumbs-up"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text"><strong>NIFTY 50</strong></span>
+                <span class="info-box-number">{{ this.nifty50CurPrice.toFixed(2) }}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <!-- fix for small devices only -->
+    <div class="clearfix hidden-md-up"></div>
+
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3 bg-info">
+            <span class="info-box-icon"><i class="fas fa-shopping-cart"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text"><strong>NIFTY BANK</strong></span>
+                <span class="info-box-number">{{ this.niftyBankCurPrice.toFixed(2) }}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3 bg-danger">
+            <span class="info-box-icon"><i class="fas fa-users"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text"><strong>NIFTY FIN</strong></span>
+                <span class="info-box-number">{{ this.niftyFINCurPrice.toFixed(2) }}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
+<!-- Main row -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="card card-primary">
+            <div class="card-header border-transparent">
+                <h3 class="card-title">Possible Movement Range - Base on India VIX</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr class="bg-warning">
+                                <th>Range Type</th>
+                                <th>CHG %</th>
+                                <th>CHG Value</th>
+                                <th>High Value</th>
+                                <th>Low Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let range of this.rangeofNiftyIndex">
+                                <td class="col-md-4">{{ this.range.caption }}</td>
+                                <td class="col-md-1 text-center">{{ this.range.changeper.toFixed(2) }} %</td>
+                                <td class="col-md-1 text-center">{{ this.range.chnagerange.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center bg-success">{{ this.range.highRange.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center bg-danger">{{ this.range.lowRange.toFixed(2) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+
+    <div class="col-md-12">
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="card card-primary">
+            <div class="card-header border-transparent">
+                <h3 class="card-title">Nifty 50 Indices</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr class="bg-warning">
+                                <th>INDEX</th>
+                                <th>CURRENT</th>
+                                <th>1W AGO</th>
+                                <th>1M AGO</th>
+                                <th>1Y AGO</th>
+                                <th>52W H</th>
+                                <th>52W L</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let index of this.nifty50IndicesData">
+                                <td class="col-md-4">{{ this.index.index }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-success' : this.index.last > this.index.previousClose, 
+                                    'bg-danger' : this.index.last < this.index.previousClose,
+                                    'bg-warning' : this.index.last == this.index.previousClose}">{{ this.index.last.toFixed(2)
+                                    }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneWeekAgo > this.index.last, 
+                                    'bg-success' : this.index.oneWeekAgo < this.index.last,
+                                    'bg-warning' : this.index.oneWeekAgo == this.index.last}">{{
+                                    this.index.oneWeekAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneMonthAgo > this.index.last, 
+                                    'bg-success' : this.index.oneMonthAgo < this.index.last,
+                                    'bg-warning' : this.index.oneMonthAgo == this.index.last}">{{
+                                    this.index.oneMonthAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneYearAgo > this.index.last, 
+                                    'bg-success' : this.index.oneYearAgo < this.index.last,
+                                    'bg-warning' : this.index.oneYearAgo == this.index.last}">{{
+                                    this.index.oneYearAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center">{{ this.index.yearHigh.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center">{{ this.index.yearLow.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-success' : this.index.oneYearAgo < this.index.last &&
+                                    this.index.oneMonthAgo < this.index.last,
+                                    'bg-primary' : this.index.oneYearAgo < this.index.last &&
+                                    this.index.oneMonthAgo > this.index.last, 'bg-warning' : this.index.oneYearAgo > this.index.last &&
+                                        this.index.oneMonthAgo < this.index.last, 'bg-danger' : this.index.oneYearAgo > this.index.last &&
+                                        this.index.oneMonthAgo > this.index.last}"><strong>{{ this.index.oneYearAgo <
+                                            this.index.last && this.index.oneMonthAgo < this.index.last ? "Very Good" :
+                                            this.index.oneYearAgo < this.index.last && this.index.oneMonthAgo>
+                                            this.index.last ? "Good" : this.index.oneYearAgo > this.index.last &&
+                                            this.index.oneMonthAgo < this.index.last ? "Nutral" : "Bad" }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+
+    <div class="col-md-12">
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="card card-primary">
+            <div class="card-header border-transparent">
+                <h3 class="card-title">Sectorial Indices</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr class="bg-warning">
+                                <th>INDEX</th>
+                                <th>CURRENT</th>
+                                <th>1W AGO</th>
+                                <th>1M AGO</th>
+                                <th>1Y AGO</th>
+                                <th>52W H</th>
+                                <th>52W L</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let index of this.sectorialIndicesData">
+                                <td class="col-md-4">{{ this.index.index }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-success' : this.index.last > this.index.previousClose, 
+                                    'bg-danger' : this.index.last < this.index.previousClose,
+                                    'bg-warning' : this.index.last == this.index.previousClose}">{{ this.index.last.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneWeekAgo > this.index.last, 
+                                    'bg-success' : this.index.oneWeekAgo < this.index.last,
+                                    'bg-warning' : this.index.oneWeekAgo == this.index.last}">{{
+                                    this.index.oneWeekAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneMonthAgo > this.index.last, 
+                                    'bg-success' : this.index.oneMonthAgo < this.index.last,
+                                    'bg-warning' : this.index.oneMonthAgo == this.index.last}">{{
+                                    this.index.oneMonthAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneYearAgo > this.index.last, 
+                                        'bg-success' : this.index.oneYearAgo < this.index.last,
+                                        'bg-warning' : this.index.oneYearAgo == this.index.last}">{{
+                                    this.index.oneYearAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center">{{ this.index.yearHigh.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center">{{ this.index.yearLow.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-success' : this.index.oneYearAgo < this.index.last &&
+                                    this.index.oneMonthAgo < this.index.last,
+                                    'bg-primary' : this.index.oneYearAgo < this.index.last &&
+                                    this.index.oneMonthAgo > this.index.last, 'bg-warning' : this.index.oneYearAgo > this.index.last &&
+                                        this.index.oneMonthAgo < this.index.last, 'bg-danger' : this.index.oneYearAgo > this.index.last &&
+                                        this.index.oneMonthAgo > this.index.last}"><strong>{{ this.index.oneYearAgo <
+                                            this.index.last && this.index.oneMonthAgo < this.index.last ? "Very Good" :
+                                            this.index.oneYearAgo < this.index.last && this.index.oneMonthAgo>
+                                            this.index.last ? "Good" : this.index.oneYearAgo > this.index.last &&
+                                            this.index.oneMonthAgo < this.index.last ? "Nutral" : "Bad" }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+
+    <div class="col-md-12">
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="card card-primary">
+            <div class="card-header border-transparent">
+                <h3 class="card-title">Thematic Indices</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr class="bg-warning">
+                                <th>INDEX</th>
+                                <th>CURRENT</th>
+                                <th>1W AGO</th>
+                                <th>1M AGO</th>
+                                <th>1Y AGO</th>
+                                <th>52W H</th>
+                                <th>52W L</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let index of this.thematicIndicesData">
+                                <td class="col-md-4">{{ this.index.index }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-success' : this.index.last > this.index.previousClose, 
+                                    'bg-danger' : this.index.last < this.index.previousClose,
+                                    'bg-warning' : this.index.last == this.index.previousClose}">{{ this.index.last.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneWeekAgo > this.index.last, 
+                                    'bg-success' : this.index.oneWeekAgo < this.index.last,
+                                    'bg-warning' : this.index.oneWeekAgo == this.index.last}">{{
+                                    this.index.oneWeekAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneMonthAgo > this.index.last, 
+                                    'bg-success' : this.index.oneMonthAgo < this.index.last,
+                                    'bg-warning' : this.index.oneMonthAgo == this.index.last}">{{
+                                    this.index.oneMonthAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-danger' : this.index.oneYearAgo > this.index.last, 
+                                        'bg-success' : this.index.oneYearAgo < this.index.last,
+                                        'bg-warning' : this.index.oneYearAgo == this.index.last}">{{
+                                    this.index.oneYearAgo.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center">{{ this.index.yearHigh.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center">{{ this.index.yearLow.toFixed(2) }}</td>
+                                <td class="col-md-1 text-center" [ngClass]="{'bg-success' : this.index.oneYearAgo < this.index.last &&
+                                    this.index.oneMonthAgo < this.index.last,
+                                    'bg-primary' : this.index.oneYearAgo < this.index.last &&
+                                    this.index.oneMonthAgo > this.index.last, 'bg-warning' : this.index.oneYearAgo > this.index.last &&
+                                        this.index.oneMonthAgo < this.index.last, 'bg-danger' : this.index.oneYearAgo > this.index.last &&
+                                        this.index.oneMonthAgo > this.index.last}"><strong>{{ this.index.oneYearAgo <
+                                            this.index.last && this.index.oneMonthAgo < this.index.last ? "Very Good" :
+                                            this.index.oneYearAgo < this.index.last && this.index.oneMonthAgo>
+                                            this.index.last ? "Good" : this.index.oneYearAgo > this.index.last &&
+                                            this.index.oneMonthAgo < this.index.last ? "Nutral" : "Bad" }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+<!-- /.row -->

@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Stocks Sum</h5>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr ngClass="bg-warning">
+                            <th>Title</th>
+                            <th>Change % - Sum</th>
+                            <th>Weightage % - Sum</th>
+                            <th>Call/Put</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let topsum of this.stockDataSum" [ngClass]="{ 'bg-success': topsum.title == 'Top 4', 
+                        'bg-primary': topsum.title == 'Top 8', 'bg-danger': topsum.title == 'Top 12'}">
+                            <th>{{ topsum.title }}</th>
+                            <th [ngClass]="{'bg-success' : topsum.pChange > 0 ,
+                                'bg-danger' : topsum.pChange < 0}">{{ topsum.pChange_sum.toFixed(2) }}</th>
+                            <th>{{ topsum.weightage_sum.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : topsum.tradeType == 'Call',
+                            'bg-danger' : topsum.tradeType == 'Put'}">{{ topsum.tradeType }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">BANK NIFTY Stocks</h5>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr ngClass="bg-warning">
+                            <th>Bank</th>
+                            <th>Open</th>
+                            <th>LTP</th>
+                            <th>Weightage %</th>
+                            <th>Change %</th>
+                            <th>30 Days Change %</th>
+                            <th>365 Days Change %</th>
+                            <th>Call/Put</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let stock of this.stocksData; let i = index;" [ngClass]="{ 'bg-success': i < 4, 
+                                'bg-primary': i > 3 && i < 8, 'bg-danger': i > 7}">
+                            <th>
+                                {{ stock.bankname }}
+                            </th>
+                            <th>{{ stock.open }}</th>
+                            <th>{{ stock.lastPrice }}</th>
+                            <th>{{ stock.weightage.toFixed(2) }}</th>
+                            <th [ngClass]="{'bg-success' : stock.pChange > 0 ,
+                                        'bg-danger' : stock.pChange < 0}">{{ stock.pChange }}</th>
+                            <th [ngClass]="{'bg-success' : stock.perChange30d > 0 ,
+                                        'bg-danger' : stock.perChange30d < 0}">{{ stock.perChange30d }}</th>
+                            <th [ngClass]="{'bg-success' : stock.perChange365d > 0,
+                                        'bg-danger' : stock.perChange365d < 0}">{{ stock.perChange365d }}</th>
+                            <th [ngClass]="{'bg-success' : stock.tradeType == 'Call',
+                                        'bg-danger' : stock.tradeType == 'Put'}">{{ stock.tradeType }}</th>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
