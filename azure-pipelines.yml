@@ -20,4 +20,6 @@ steps:
     npm install --save --force webpack@webpack-3
     npm install -g @angular/cli
     ng build
-  displayName: 'npm install and build'
+    echo /tmp/ng-5eI8iC/angular-errors.log
+  
+  
