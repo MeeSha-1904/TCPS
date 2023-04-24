@@ -19,5 +19,5 @@ steps:
     npm install
     npm install --save --force webpack@webpack-3
     npm install -g @angular/cli
-    ng build --prod
+    ng build
   displayName: 'npm install and build'
